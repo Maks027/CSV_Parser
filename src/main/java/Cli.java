@@ -1,13 +1,25 @@
+import com.opencsv.exceptions.CsvValidationException;
 import org.apache.commons.cli.*;
+
+import java.io.IOException;
 
 public class Cli {
 
     public void runCli(String[] args){
         CommandLine commandLine = parseArg(args);
+        FileProcessing file = new FileProcessing();
 
         if (commandLine.hasOption("filename")){
             System.out.println(commandLine.getOptionValue("filename"));
             String fileName = commandLine.getOptionValue("filename");
+            try {
+                file.printCsvContent(file.readCsvLine(file.openFile(fileName)));
+            } catch (IOException | CsvValidationException e) {
+                e.printStackTrace();
+                System.out.println("Could not open the file");
+            }
+
+
 
         } else {
           System.out.println("Invalid argument");
