@@ -9,5 +9,6 @@
         <module name="CSV_Parser" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="10" />
   </component>
 </project>
