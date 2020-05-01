@@ -13,8 +13,9 @@ public class Cli {
             System.out.println(commandLine.getOptionValue("filename"));
             String fileName = commandLine.getOptionValue("filename");
             try {
-                file.printCsvContent(file.readCsvLine(file.openFile(fileName)));
-            } catch (IOException | CsvValidationException e) {
+                //file.printCsvContent(file.readCsvLine(file.openFile(fileName)));
+                file.printCsvBean(file.xCsvToBean(file.openFile(fileName)));
+            } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println("Could not open the file");
             }

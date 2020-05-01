@@ -1,12 +1,10 @@
 import com.opencsv.CSVReader;
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.CsvValidationException;
-import lombok.Getter;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -28,6 +26,23 @@ public class FileProcessing {
             list.add(line);
         }
         return list;
+    }
+
+    public CsvToBean<CsvX> xCsvToBean(Reader reader){
+        CsvToBean<CsvX> csvToBean = new CsvToBeanBuilder(reader)
+                .withType(CsvX.class)
+                .withIgnoreLeadingWhiteSpace(true)
+                .build();
+        return csvToBean;
+    }
+
+    public void printCsvBean( CsvToBean<CsvX> csvToBean){
+        csvToBean.forEach(v -> {
+            System.out.println(v.getA());
+            System.out.println(v.getB());
+            System.out.println(v.getC());
+            System.out.println(v.getD());
+        });
     }
 
     public void printCsvContent(List<String[]> list){
