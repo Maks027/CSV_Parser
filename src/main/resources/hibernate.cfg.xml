@@ -7,7 +7,7 @@
         <property name="connection.url">jdbc:sqlite:F:/sqlite/data.db</property>
         <property name="connection.driver_class">org.sqlite.JDBC</property>
         <property name="hibernate.dialect">org.hibernate.dialect.SQLiteDialect</property>
-        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.hbm2ddl.auto">create-drop</property>
         <mapping class="entities.EntityX"/>
         <!-- <property name="connection.username"/> -->
         <!-- <property name="connection.password"/> -->

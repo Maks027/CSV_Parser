@@ -3,10 +3,7 @@ package entities;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "X")
@@ -27,16 +24,17 @@ public class EntityX {
     private String C;
     @Getter @Setter
     private String D;
+    @Lob
     @Getter @Setter
-    private String E;
+    private byte[] E;
     @Getter @Setter
     private String F;
     @Getter @Setter
     private String G;
     @Getter @Setter
-    private String H;
+    private boolean H;
     @Getter @Setter
-    private String I;
+    private boolean I;
     @Getter @Setter
     private String J;
 

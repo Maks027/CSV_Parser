@@ -2,6 +2,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.CsvValidationException;
+import entities.EntityX;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -34,6 +35,29 @@ public class FileProcessing {
                 .withIgnoreLeadingWhiteSpace(true)
                 .build();
         return csvToBean;
+    }
+
+    public EntityX csvBeanToEntity(CsvX csvX){
+        EntityX entityX = new EntityX();
+        entityX.setA(csvX.getA());
+        entityX.setB(csvX.getB());
+        entityX.setC(csvX.getC());
+        entityX.setD(csvX.getD());
+        entityX.setE(csvX.getE().getBytes());
+        entityX.setF(csvX.getF());
+        entityX.setG(csvX.getG());
+        entityX.setH(Boolean.valueOf(csvX.getH()));
+        entityX.setI(Boolean.valueOf(csvX.getI()));
+        entityX.setJ(csvX.getJ());
+        return entityX;
+    }
+
+    public void csvBeanToDb(CsvToBean<CsvX> csvToBean){
+        DbSession db = new DbSession();
+
+        csvToBean.forEach(v -> {
+            db.objToDb(csvBeanToEntity(v));
+        });
     }
 
     public void printCsvBean( CsvToBean<CsvX> csvToBean){
