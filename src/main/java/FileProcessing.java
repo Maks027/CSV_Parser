@@ -15,11 +15,28 @@ import java.util.List;
 
 public class FileProcessing {
     private CsvWrite csvWrite;
+    private int totalRecords = 0;
+    private int failedRecords = 0;
+    private int successfulRecords = 0;
+
+    Logs logs = new Logs();
+
+
+    public void printLog(){
+        System.out.println("File parsing finished successfully:");
+        System.out.println(this.totalRecords + " records received");
+        System.out.println(this.successfulRecords + " records successful");
+        System.out.println(this.failedRecords + " failed records");
+
+        logs.logToFile("File parsing finished successfully:");
+        logs.logToFile(this.totalRecords + " records received");
+        logs.logToFile(this.successfulRecords + " records successful");
+        logs.logToFile(this.failedRecords + " failed records");
+    }
 
     public CsvWrite getCsvWrite(){
         return this.csvWrite;
     }
-
 
     public void initCsvWrite(String path){
         try {
@@ -32,10 +49,12 @@ public class FileProcessing {
 
     BeanVerifier<CsvX> beanVerifier = csvX -> {
         if (csvX.verifyEmptyFields()){
-            System.out.println("One field is empty");
-            System.out.println(csvX.getA());
             csvWrite.writeBeanToCsv(csvX);
+            failedRecords++;
+        } else {
+            successfulRecords++;
         }
+        totalRecords++;
         return true;
     };
 

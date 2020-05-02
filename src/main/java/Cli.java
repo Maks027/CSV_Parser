@@ -15,8 +15,10 @@ public class Cli {
             String fileName = commandLine.getOptionValue("filename");
             try {
                 file.initCsvWrite("F:/inc.csv");
+                System.out.println("File parsing started");
                 file.csvBeanToDb(file.xCsvToBean(file.openFile(fileName)));
                 file.getCsvWrite().closeWriter();
+                file.printLog();
 
             } catch (IOException e) {
                 e.printStackTrace();
