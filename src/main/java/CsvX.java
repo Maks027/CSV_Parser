@@ -26,5 +26,27 @@ public class CsvX {
     @CsvBindByName @Getter @Setter
     private String J;
 
-
+    public boolean verifyEmptyFields(){
+        if (this.A.equals(""))
+            return true;
+        if (this.B.equals(""))
+            return true;
+        if (this.C.equals(""))
+            return true;
+        if (this.D.equals(""))
+            return true;
+        if (this.E.equals(""))
+            return true;
+        if (this.F.equals(""))
+            return true;
+        if (this.G.equals(""))
+            return true;
+        if (this.H.equals(""))
+            return true;
+        if (this.I.equals(""))
+            return true;
+        if (this.J.equals(""))
+            return true;
+        return false;
+    }
 }
