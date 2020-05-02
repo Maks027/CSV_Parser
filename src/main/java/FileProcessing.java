@@ -19,8 +19,18 @@ public class FileProcessing {
     private int failedRecords = 0;
     private int successfulRecords = 0;
 
-    Logs logs = new Logs();
+    Logs logs;
 
+    public FileProcessing(String globalPath) {
+       this.logs = new Logs(globalPath + "parse.log");
+
+        try {
+            this.csvWrite = new CsvWrite(globalPath + "bad-data.csv");
+        } catch (IOException e) {
+            System.out.println("Could not create file");
+            e.printStackTrace();
+        }
+    }
 
     public void printLog(){
         System.out.println("File parsing finished successfully:");
@@ -38,14 +48,6 @@ public class FileProcessing {
         return this.csvWrite;
     }
 
-    public void initCsvWrite(String path){
-        try {
-            this.csvWrite = new CsvWrite(path);
-        } catch (IOException e) {
-            System.out.println("Could not create file");
-            e.printStackTrace();
-        }
-    }
 
     BeanVerifier<CsvX> beanVerifier = csvX -> {
         if (csvX.verifyEmptyFields()){

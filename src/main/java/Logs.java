@@ -7,11 +7,11 @@ public class Logs {
     private Logger logger;
     private FileHandler fileHandler;
 
-    public Logs() {
+    public Logs(String path) {
         this.logger = Logger.getLogger("ParsingLog");
 
         try {
-            fileHandler = new FileHandler("F:/parsing.log");
+            fileHandler = new FileHandler(path);
             logger.addHandler(fileHandler);
             SimpleFormatter formatter = new SimpleFormatter();
             fileHandler.setFormatter(formatter);
