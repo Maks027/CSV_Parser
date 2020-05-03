@@ -1,5 +1,4 @@
 import com.opencsv.CSVWriter;
-import com.opencsv.bean.BeanVerifier;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.CsvException;
@@ -21,6 +20,7 @@ public class FileProcessing {
     Logs logs;
 
     public void printLog(String path){
+        this.successfulRecords = this.totalRecords - this.failedRecords;
         System.out.println("File parsing finished successfully:");
         System.out.println(this.totalRecords + " records received");
         System.out.println(this.successfulRecords + " records successful");
@@ -47,8 +47,6 @@ public class FileProcessing {
         return csvWriter;
     }
 
-
-
     public Reader openFile(String fileName) {
         Reader reader = null;
         try {
@@ -68,7 +66,6 @@ public class FileProcessing {
         return csvToBean;
     }
 
-
     public Database csvToDb(String path)  {
         CsvToBean<CsvX> csvToBean = xCsvToBean(openFile(path));
         Database db = new Database();
@@ -76,8 +73,6 @@ public class FileProcessing {
             totalRecords++;
             db.newEntry(csvX);
         });
-
-        System.out.println("Database successfully created");
 
         List<CsvException> exceptions = csvToBean.getCapturedExceptions();
 

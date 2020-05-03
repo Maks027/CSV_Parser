@@ -19,10 +19,7 @@ public class Logs {
             e.printStackTrace();
         }
     }
-
     public void logToFile(String info){
         this.logger.info(info);
     }
-
-
 }

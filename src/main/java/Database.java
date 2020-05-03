@@ -1,5 +1,4 @@
 import lombok.Getter;
-import org.sqlite.jdbc4.JDBC4Connection;
 
 import java.sql.*;
 
@@ -89,71 +88,11 @@ public class Database {
         }
     }
 
-    public static void main(String[] args) {
-        Database database = new Database();
-
-        Statement st = null;
+    public void closeConnection(){
         try {
-            st = database.getConnection().createStatement();
-            st.executeUpdate("drop table if exists R");
-            st.executeUpdate("create table R (A string, B string, C string)");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                st.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        PreparedStatement stmt = null;
-
-        String A = "Judy";
-        String B = "John's";
-        String C = "Tim";
-
-        try {
-            stmt = database.getConnection().prepareStatement(
-                    "INSERT INTO R VALUES (?, ?, ?)");
-
-            stmt.setString(1, A);
-            stmt.setString(2, B);
-            stmt.setString(3, C);
-
-            int result = stmt.executeUpdate();
-            if (result == 0) {
-                System.out.println("Employee not added.");
-            } else {
-                System.out.println("Employee added.");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                stmt.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        ResultSet rs = null;
-
-        try {
-            Statement st1 = database.getConnection().createStatement();
-            rs = st1.executeQuery("select * from R");
-            while(rs.next())
-            {
-                System.out.println("A = " + rs.getString("A") +
-                        " ; B = " + rs.getString("B") +
-                        " ; C = " + rs.getString("C"));
-            }
+            this.connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
-
     }
 }
