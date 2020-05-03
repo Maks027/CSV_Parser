@@ -1,4 +1,3 @@
-##CSV Parser
 This is a Java application that consumes a CSV file, parse the data 
 and insert to a SQLite In-Memory database.
 
